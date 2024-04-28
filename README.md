@@ -4,12 +4,18 @@
 Všechny níže zmíněné součásti by měli být součástí kitu. Pokud bude některá chybět, prosím kontaktujte mě a domluvíme se na náhradě.
 ### Raspberry Pi 4
 Tento jednodeskový počítač je základem celého automatizovaného řešení. V této implementaci slouží jako server, na kterém bude bežet služba Zigbee2MQTT. Počítač by se měl nacházet v ochraném pouzdru. Pro účely názornosti budou použity obrázky bez pouzdra, viz následující obrázek.
+
+![RP4](./Podklady/raspberry.png)
 ### Zigbee USB dongle
 Jedná se o koordinátor pro bezdrátovou komunikační technologii Zigbee. Po připojení do Raspberry Pi slouží jako ovladač chytrých komponent.
+
+![Zigbee koordinátor](./Podklady/Zigbee_dongle.jpg)
 ### MikroSD
 Obsahuje software Home Assistant, který integruje automatizace a slouží pro řízení chytrých zařízení. 
 ### USB-C kabel + Adaptér
 Tyto prvky slouží k zajištění napájení Raspberry Pi 4
+
+![USB kabel](./Podklady/kabel.png)
 ### Síťový ethernet kabel
 Kabel k propojení Raspberry Pi 4 s domácí sítí
 ### Multifunční kostka Aqara
@@ -20,39 +26,58 @@ Dvojité poklepání
 * Překlopení kostky o 180°
 * Posun kostky po ploše
 * Zatřepání kostkou
+
+![Aqara kostka](./Podklady/Kostka.png)
 ### Magnetický senzor ZC-M1
 Senzor se skládá ze dvou částí, magnetu a samotného senzoru. Senzor je ve stavu zavřeno, pokud se nachází v magnetickém poli. Pokud se od se be součásti vzdálí, změní se stav senzoru na otevřeno.
+
+![Magnetický senzor](./Podklady/Sensor.png)
 ### LED žárovka IKEA TRÅDFRI
 Žárovka s nastavitelným jasem a barvou.
 
+![IKEA žárovka](./Podklady/Zarovka.png)
+
 ### Adaptér pro napájení žárovky ze zásuvky
 V případě, že LED žárovka nepasuje do žadné dostupné objímky, lze použít tento adaptér.
+
+![Žárovkový adaptér](./Podklady/Adapter.png)
 
 ## Zavedení komponent
 Tato kapitola poskytuje návod na zprovoznění jednotlivých komponent, aby je bylo možné používat v automatizacích. Pokud při plnění postupu narazíte na problém, kontaktujte mě prosím a společně problém vyřešíme.
 ### Zprovoznění Raspberry Pi 4
 Raspbery Pi 4 (dále RP4) a jeho součsti by měli být předem nastaveny. 
 Postup pro zprovoznění RP4 je následující:
-* Vsuňte SD kartu do příslušného slotu na RP4. 
+* Vsuňte SD kartu do příslušného slotu na RP4.
+
+![Vložení SD karty](./Podklady/SD_insert.png)
+
 * Připojte jeden konec ethernet kabelu do Vaší domací sítě, například routeru.
 
+![Router](./Podklady/Router.jpg)
+
 * Druhý konec ethernet kabelu připojte do RP4.
+
+![Připojení ethernet kabelu](./Podklady/Ethernet_inser.png)
 * Připojte Zigbee USB dongle do jednoho z USB portů.
 * Připojte napájení kabelem USB-C.
+
+![Připojení napájení](./Podklady/Power_insert.png)
 * Druhý konec připojte pomocí adaptéru do zásuvky.
 * Poté začně blikat dioda RP4, což značí, že komponenta byla úspěšně připojena. 
 
 ## Zprovoznění Zigbee prvků
 ### Multifunční kostka Aqara
-* Pomocí přiloženého nástroje odstraňte zadní stěnu kostky. Tato stěna na sobě bude mít tento symbol →
+* Pomocí přiloženého nástroje odstraňte zadní stěnu kostky. Tato stěna na sobě bude mít symbol vykřičníku v trojuhelníku
 * Zkontrolujte, že kostka má v sobě baterii.
 * Pokud baterie chybí, vložte knoflíkovou baterii CR2450, která je součástí balení.
-* Podržte tlačítko u nápisu LINK podobu 5 sekund.
+* Podržte tlačítko u nápisu **LINK** podobu 5 sekund.
 * Rozblikání LED diody značí, že došlo k propojení.
 * Vraťte zadní stěnu na její původní místo
 > [!WARNING]
 > Ujistěte se, že je stěna řádně zacvaknuta, aby nedošlo k jejímu uvolnění při manipulaci s kostkou. ! 
 * Nyní lze kostku používat jako ovladač.
+
+![Instalace senzoru](./Podklady/Sensor_install.png)
 
 ### Magnetický senzor ZC-M1
 * Odejměte zadní kryt senzoru.
@@ -83,18 +108,28 @@ Senzor je nainstalován na okenní rám, tak aby byl v kontaktu s magnetem, kter
 > [!NOTE]
 > Jas se změní jen pokud žárovka svítí
 
+![Okenní senzor](./Podklady/Window_sensor.gif)
+
 ### Přepíná stavu žárovky dvojitým poklepáním kostkou
 Žárovka je zašroubována v objímce a má přívod elektrického proudu. Dvojitým poklepáním kostkou dojde k vypnutí/zapnutí žárovky.  Zároveň dojde k nastavení barvy a jasu na počáteční hodnoty.
 
+![Přepínání žárovky](./Podklady/Lightbulb_toggle.gif)
 
 ### Korigování jasu žárovky pomocí otáčení kostkou
 Žárovka je zašroubována v objímce a má přívod elektrického proudu. Dvojitým poklepáním kostkou dojde k vypnutí/zapnutí žárovky. Vodorovným otáčením kostky doprava se zvyšuje jas žárovky. Vodorovným otáčením kostky doleva se snižuje jas žárovky.
 > [!NOTE]
 > Žárovka musí svítit aby došlo ke změně jasu
 
+![Nastavení jasu](./Podklady/Brightness_rotate.gif)
+
 ### Změna barvy žárovky převracením kostky o 90°
 Žárovka je zašroubována v objímce a má přívod elektrického proudu. Dvojitým poklepáním kostkou dojde k vypnutí/zapnutí žárovky. Převrácením kostky o 90° se změní barva žárovky.
+
+![Změna barvy](./Podklady/Color_flip.gif)
+
 Barva světla záleží na horní straně kostky po převrácení viz diagram kostky.
+
+![Diagram kostky](./Podklady/Kosticka_diagram.jpg)
 
 ## Kontakt
 Telefon: **731 860 678**
